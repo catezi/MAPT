@@ -1,4 +1,4 @@
-# Multi-agent Preference Transformer (MAPT)
+# Multi-Agent Preference Transformer (MAPT)
 
 This is the official code repository for the paper "Decoding Global Preferences: Temporal and Cooperative Dependency Modeling in Multi-Agent Preference-Based Reinforcement Learning" accepted by AAAI 2024.
 
@@ -45,19 +45,21 @@ Following our paper, we use script teachers to generate preference data.
 Please download demonstrate preference data of several tasks from [here](https://bhpan.buaa.edu.cn/link/AAFAAAA5703BEA491E903A81CF6715F7C4).
 
 
-### 3. Reward Modeling Phrase
+## Model Training
+
+### 1. Reward Modeling Phrase
 
 - After installing dependences, you could run shells in the "scripts" folder.
 - Run scripts end with `"reward.sh"`, for example `"train_smac_3m_reward.sh"`.
 - Remember to set `--dataset_path` correctly to the path of your data set.
 - Remember to set `log_dir` to the path you want to save log and model, which is set `'./results/pref_reward'` by defaught.
 
-### 4. Policy Learning Phrase
+### 2. Policy Learning Phrase
 
 - Run scripts end with `"policy.sh"`, for example `"train_smac_3m_policy.sh"`.
 - Remember to set `--preference_model_dir` correctly to the path of pre-trained preference reward model.
 
-### 5. Parameter Description
+### 3. Parameter Description
 
 - parameters for the reward modeling phrase
 
