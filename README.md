@@ -52,7 +52,7 @@ Please download demonstrate preference data of several tasks from [here](https:/
 - After installing dependences, you could run shells in the "scripts" folder.
 - Run scripts end with `"reward.sh"`, for example `"train_smac_3m_reward.sh"`.
 - Remember to set `--dataset_path` correctly to the path of your data set.
-- Remember to set `log_dir` to the path you want to save log and model, which is set `'./results/pref_reward'` by defaught.
+- Remember to set `log_dir` to the path you want to save log and model, which is set `'./results/pref_reward'` by default.
 
 ### 2. Policy Learning Phrase
 
