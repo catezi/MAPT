@@ -345,8 +345,10 @@ class MultiTransRewardDivideModel(nn.Module):
         ############## set weight sum layer for time / agent layer
         if self.config.use_weighted_sum:
             self.agent_weight_head = nn.Linear(self.embd_dim // 4 if self.config.use_lstm else self.embd_dim, 3 * self.pref_attn_embd_dim)
-            self.time_weight_head = nn.Linear(self.embd_dim // 4 if self.config.use_lstm else self.embd_dim, 2 * self.pref_attn_embd_dim + 1)
-            self.attn_dropout = nn.Dropout(0.0)
+            self.time_weight_head = nn.Linear(self.pref_attn_embd_dim if self.config.use_lstm else self.embd_dim, 2 * self.pref_attn_embd_dim + 1)
+            self.attn_dropout = nn.Dropout(0.2)
+            self.last = self.last = nn.Linear(
+                self.embd_dim // 4 if self.config.use_lstm else self.embd_dim, 1)
         else:
             self.last = self.last = nn.Linear(
                 self.embd_dim // 4 if self.config.use_lstm else self.embd_dim, 1)
@@ -378,6 +380,8 @@ class MultiTransRewardDivideModel(nn.Module):
 
         ############## weight sum layer
         if self.config.use_weighted_sum:
+            # channel projection
+            output = self.last(time_output)
             ############## weight sum of agent layer
             # (batch_size * seq_length, agent_num, 2 * embd_dim + 1)
             x = self.agent_weight_head(time_output).reshape(batch_size * seq_length, agent_num, -1)
@@ -427,9 +431,9 @@ class MultiTransRewardDivideModel(nn.Module):
                                    scale_attn_weights=True, training=False, attn_mask=None, head_mask=None)
             # out: [B * agent_num, 1, seq_len, 1] -> [B * agent_num, seq_len, 1]
             out = ops.merge_heads(out, num_heads, 1)
-            ############## weight sum of time layer
+            ############## weight sum of time layer and fusion
             # out: [B * agent_num, seq_len, 1] -> [B, seq_len, agent_num, 1]
-            output = out.reshape(batch_size, agent_num, seq_length, 1).permute(0, 2, 1, 3)
+            output += out.reshape(batch_size, agent_num, seq_length, 1).permute(0, 2, 1, 3)
         else:
             # (batch_size, seq_length, agent_num, 1)
             output = self.last(time_output)

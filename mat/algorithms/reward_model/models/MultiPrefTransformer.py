@@ -19,7 +19,7 @@ class MultiPrefTransformer(object):
         config.resid_dropout = 0.1
         config.pref_attn_embd_dim = 256
         config.medium_process_type = 'cat'
-        config.use_weighted_sum = False
+        config.use_weighted_sum = True
         config.reverse_state_action = False
         config.agent_individual = False
         config.use_dropout = False
