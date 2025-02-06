@@ -42,7 +42,7 @@ Please following the instructios in https://github.com/PKU-MARL/DexterousHands.
 
 Following our paper, we use script teachers to generate preference data.
 
-Please download demonstrate preference data of several tasks from [here](https://bhpan.buaa.edu.cn/link/AAF32DA14EADF84A0DAD42B3C1812D7391).
+Please download demonstrate preference data of several tasks from [here](https://bhpan.buaa.edu.cn/link/AAD5797380BA5C493F95376B6E98BD53EA).
 
 
 ## Model Training
